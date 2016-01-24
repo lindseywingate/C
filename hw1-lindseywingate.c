@@ -42,3 +42,4 @@ int main()
 
 	return 0;
 }
+/*This code was written by Lindsey Wingate*/
