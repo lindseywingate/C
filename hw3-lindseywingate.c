@@ -7,17 +7,14 @@ int main()
 {
 	FILE*file1;
 	FILE*file2;
-	char line[50];
 	FILE*file3;
 //	int i;
 	int count=0;
 	int count2=0;
 	int count3=0;
+	int counter=0;
 	int size;
-	char* pnt;
-//	
-//	pnt = calloc(50, sizeof(char[50]);
-
+	char line[50];
 //	int size;
 	file1 = fopen("american0.txt", "r");
 	while(fscanf(file1, "%s", file1[count])>=1){
@@ -42,28 +39,27 @@ int main()
 	size = count+count2+count3;
 	printf("%d\n", size);
 
-	//creates dynamic array
-	pnt = calloc(size, 50);
+///creating one big array from files
+	char* array;
+	array = (char*)calloc(size, 50);
 
-	//opens files and adds contents to array
+	printf("%d", counter);
 	file1 = fopen("american0.txt", "r");
-	while(fgets(line, "%s", file1)!=NULL){	
-		printf("%s", line);
+	while(fscanf(file1, "%c", &array[counter])>=1) {
+		counter++;
 	}
+	printf("%d", size);
+/*	printf("%d", counter);
 	fclose(file1);
-
 	file2 = fopen("american1.txt", "r");
-	while(fgets(line, "%s", file2)) {
-		printf("%s", line);
+	while(fscanf(file2, "%c", &array[counter]>=1)) {
+		counter++;	
 	}
-	
-	file3 = fopen("american2.txt", "r");
-	while(fgets(line, "%s", file3)) {
-		printf("%s", line);
-	}	
-	
-	free(pnt);
-	
+*/
+	for(int i = 0; i<sizeof(array); i++) {
+		printf("%c", array[i]);
+	}
+
 	return 0;
 }
 
