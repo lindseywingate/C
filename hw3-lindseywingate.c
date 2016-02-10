@@ -30,7 +30,7 @@ int main()
 		fscanf(file1, "%s", &trash);
 		count++;
 	}
-	printf("%d\n",count);
+//	printf("%d\n",count);
 	rewind(file1);
 	//return count;
 
@@ -42,7 +42,7 @@ int main()
 		fscanf(file2, "%s", &trash2);
 		count2++;
 	}
-	printf("%d\n", count2);
+//	printf("%d\n", count2);
 	rewind(file2);
 	
 	file3 = fopen("american2.txt", "r");
@@ -53,30 +53,41 @@ int main()
 		fscanf(file3, "%s", &trash3);
 		count3++;
 	}
-	printf("%d\n",count3);
+//	printf("%d\n",count3);
 	rewind(file3);
 
 	size = count+count2+count3;
 	printf("%d\n", size);
 
 	//column of pointers	
-	array = (char **)calloc(size, sizeof(array));
+	array = (char **)calloc(size+1, sizeof(*array));//size of pointer
+	//char ** casts into pointer you want
 	for (y=0; y<size; y++) {
 		//row of bytes
-		array[y] = (char *)calloc(50, 1);
+		array[y] = (char *)calloc(51, sizeof(char));
 	}
 
-	for(i=0; i<50; i++) {
-		fscanf(file1, "%c", &array[i]);
-		printf("%c", array[i]);
+printf("%d\n", size);
+
+	for(i=0; i<count; i++) {
+		fscanf(file1, "%s", array[i]);
 	}
-/*    	
-	for(int j=count; j<count2; j++) {
-		fscanf(file2, "%s", &array[j]);
-		printf("%s\n", array[j]);
-	}	
-	free(array);
-*/
+	
+	for(i=count; i<count+count2; i++) {
+		fscanf(file2, "%s", array[i]);
+	}
+
+	for(i=count+count2; i<count+count2+count3; i++) {
+		fscanf(file3, "%s", array[i]);
+	}
+
+	for(int b=0; b<size; b++) {
+		printf("%s\n", array[b]);
+	}
+	
+
+free(array);
+
 	fclose(file1);
 	fclose(file2);
 	fclose(file3);	
