@@ -1,7 +1,7 @@
 /*This code was written by Lindsey Wingate*/
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <string.h>
 //hints: no word > 50, determine file size first, create single dynamic array, write results to words.txt, man 3 malloc or calloc, man 3 strcmp and strcpy, man 3 feof
 int main()
 {
@@ -17,10 +17,11 @@ int main()
 	int count=0;
 	int count2=0;
 	int count3=0;
-	int size, y, i;
+	int size, y, i, j;
 	
 	char *data;
 	char **array;	
+	char t[50];
 
 	file1 = fopen("american0.txt", "r");
 	while(1) {
@@ -57,7 +58,7 @@ int main()
 	rewind(file3);
 
 	size = count+count2+count3;
-	printf("%d\n", size);
+//	printf("%d\n", size);
 
 	//column of pointers	
 	array = (char **)calloc(size+1, sizeof(*array));//size of pointer
@@ -67,7 +68,7 @@ int main()
 		array[y] = (char *)calloc(51, sizeof(char));
 	}
 
-printf("%d\n", size);
+	//printf("%d\n", size);
 
 	for(i=0; i<count; i++) {
 		fscanf(file1, "%s", array[i]);
@@ -81,16 +82,28 @@ printf("%d\n", size);
 		fscanf(file3, "%s", array[i]);
 	}
 
+		free(array);
+
+	for(i=1; i<size; i++) {
+		for (j=1; j<size; j++) {
+			if(strcmp(array[j-1], array[j]) > 0) {
+				strcpy(t, array[j-1]);
+				strcpy(array[j-1],array[j]);
+				strcpy(array[j], t);
+			}	
+		}
+	}
+
+	FILE *words = fopen("words.txt", "w");
 	for(int b=0; b<size; b++) {
 		printf("%s\n", array[b]);
+		fprintf(words, "%s\n", array[b]);
 	}
-	
-
-free(array);
-
+	fclose(words);	
 	fclose(file1);
 	fclose(file2);
-	fclose(file3);	
+	fclose(file3);
+	
 	return 0;
 }
 
