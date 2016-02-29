@@ -67,9 +67,7 @@ int main()
 		//row of bytes
 		array[y] = (char *)calloc(51, sizeof(char));
 	}
-
 	//printf("%d\n", size);
-
 	for(i=0; i<count; i++) {
 		fscanf(file1, "%s", array[i]);
 	}
@@ -83,7 +81,6 @@ int main()
 	}
 
 		free(array);
-
 	for(i=1; i<size; i++) {
 		for (j=1; j<size; j++) {
 			if(strcmp(array[j-1], array[j]) > 0) {
@@ -103,8 +100,6 @@ int main()
 	fclose(file1);
 	fclose(file2);
 	fclose(file3);
-	
 	return 0;
 }
-
 	/*This code was written by Lindsey Wingate*/
