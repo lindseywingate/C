@@ -7,36 +7,27 @@ char* vector_class(char*, int);
 int SIZE = 0;
 int main()
 {
-	int count = 0;
-	char array[5];
+	char *str;
+	str = (char *) malloc(15);
 	char c;
-	char* p;
+	int count;
 	printf("Please enter a character. Press enter twice to quit: ");
 	while(1) {
 		if(c =='\n')
 			break;
-		//two getchar()s in a row get rid of extra characters (ex: \n)
 		c = getchar();
 		getchar();
-		p = &array[count];
-		array[count] = c;
+		str[count] = c;
 		count++;
-		//printf("size of array: %lu", sizeof(array));	
-		if(count==(sizeof(array)-1)) 
-			vector_class(p, count);
-	
+		if(count>(sizeof(str))) {
+			str = (char *) realloc(str, count+10);
+		}	
 	}
-//	free(p);
-	return(0);	
-}
+	for(int a=0; a<count; a++)
+		printf("%c", str[a]);
 
-char* vector_class(char* p, int count)
-{
-	printf("%d",count);
-	printf("does it even get here?");
-	char* new_array = (char*)calloc(count+1, sizeof(char));
-	printf("size of new_array: %lu", sizeof(new_array));
-	return(p2);
+	free(str);
+	return(0);	
 }
 
 /* This code was written by Lindsey Wingate*/
