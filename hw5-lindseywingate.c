@@ -22,6 +22,20 @@ nodey *current;
 	}
 }
 
+/*link *searchList(int n, link *head)
+{
+	nodey *current;
+	current = head;
+	while(current->next !=NULL) {
+		if(current->data == n)
+			return 1;			
+		else 
+			current=current->next;
+	}
+	return 0;
+}
+*/
+
 void printnodeys(nodey *head)
 {
 nodey *current;
@@ -38,20 +52,15 @@ nodey *head;
 	head = NULL;
 	add(&head);
 	printnodeys(head);
-	return 0;
 
 	int findme = 0;
 	printf("Please enter a numerical value: ");
 	scanf("%d", &findme);
-//	search(findme);
-	printf("%d", findme);
+//	searchList(findme, head);
+//	printf("[%d %d]\n", n, searchList(n, head)->data);
 
+	return 0;
 }
-
-//bool search(int n)
-//{
-
-//}
 
 /* Code created by Lindsey Wingate*/
 
