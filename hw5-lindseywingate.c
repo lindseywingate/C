@@ -8,28 +8,50 @@ struct node
 	int data;
 	struct node *next;
 };
+typedef struct node nodey;
+
+void add(nodey **head)
+{
+int count;
+nodey *current;
+	for(count=9; count>=0; count--) {
+		current = (nodey *)malloc(sizeof(nodey));
+		current->data = count;
+		current->next = (*head);
+		(*head) = current;
+	}
+}
+
+void printnodeys(nodey *head)
+{
+nodey *current;
+	current = head;
+	while (current != NULL) {
+		printf("%d\n", current->data);
+		current = current->next;
+	}
+}
 
 int main(void)
 {
-	//set up root node first
-	struct node *root;
-	root = (struct node*) malloc(sizeof(struct node));
-	root->next = NULL;
-	root->data = 9;
-	int	count = 8;
+nodey *head;
+	head = NULL;
+	add(&head);
+	printnodeys(head);
+	return 0;
 
-	/*for(count; count>-1; count--) {
-		struct node *current;
-		current = (struct node*) malloc(sizeof(struct node));
-		current->next = NULL;
-		root->data = count;
-	}
-	*/
-		//create linked list with for loop and print low to high
-		//request input and do linear search for data
+	int findme = 0;
+	printf("Please enter a numerical value: ");
+	scanf("%d", &findme);
+//	search(findme);
+	printf("%d", findme);
 
-		//correctly free all links
 }
+
+//bool search(int n)
+//{
+
+//}
 
 /* Code created by Lindsey Wingate*/
 
