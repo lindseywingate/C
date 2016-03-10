@@ -22,19 +22,18 @@ nodey *current;
 	}
 }
 
-/*link *searchList(int n, link *head)
+struct node *searchList(int search, nodey *head)
 {
 	nodey *current;
 	current = head;
-	while(current->next !=NULL) {
-		if(current->data == n)
-			return 1;			
+	while(current !=NULL) {
+		if(current->data == search)
+			return current;			
 		else 
 			current=current->next;
 	}
-	return 0;
+	return NULL;
 }
-*/
 
 void printnodeys(nodey *head)
 {
@@ -53,12 +52,14 @@ nodey *head;
 	add(&head);
 	printnodeys(head);
 
-	int findme = 0;
+	int search = 0;
 	printf("Please enter a numerical value: ");
-	scanf("%d", &findme);
-//	searchList(findme, head);
-//	printf("[%d %d]\n", n, searchList(n, head)->data);
-
+	scanf("%d", &search);
+	searchList(search, head);
+	if (search<10 && search>=0)
+		printf("[%d %d]\n", search, searchList(search, head)->data);
+	else
+		printf("Your value was not found.\n");
 	return 0;
 }
 
