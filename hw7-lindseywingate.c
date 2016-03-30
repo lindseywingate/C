@@ -87,7 +87,8 @@ void DISPLAY_INORDER() {
 //Prints all elements in linked list in reverse traversal order. 
 void DISPLAY_POSTORDER() {
 	struct Node* temp = head;
-	if(temp == NULL) 
+	if(temp == NULL)
+		printf("None in list."); 
 		return; // empty list, exit
 	// Going to last Node
 	while(temp->next != NULL) {
@@ -104,10 +105,14 @@ void DISPLAY_POSTORDER() {
 void FREE_INORDER() {	
 	struct Node* temp = head;
 	while(temp->next != NULL) {
-		temp = temp->next;
+		head = temp->next;
+		temp->next=NULL;
+		free(temp);		
+		temp = head;
 	}
-	while(temp!=NULL) {
-		free(temp->prev);
+	if(temp->next==NULL) {
+		head=NULL;
+		free(temp);	
 	}
 }
 
@@ -123,6 +128,8 @@ int length() {
 	return count;
 }
 
+
+//*****************************************main********************************************//
 int main(int num, char*arg[]) {
 	if(num==2)
 		printf("\nCommand line argument:	%s\n\n", arg[1]);
@@ -150,10 +157,8 @@ int main(int num, char*arg[]) {
 	delete_node_perm(9);
 	DISPLAY_INORDER();
 	printf("%d\n", length());
-
-//	FREE_INORDER();
-	//FREE_INORDER();
-	//struct Node* newNode = find_node(3);
-	//printf("%d", newNode->data);	
+	FREE_INORDER();
+	DISPLAY_INORDER();
+	printf("%d\n", length());
 }
 /* This code was written by Lindsey Wingate*/
