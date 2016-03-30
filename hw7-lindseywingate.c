@@ -175,6 +175,7 @@ int main(int num, char*arg[]) {
 	delete_node_perm(2);
 	delete_node_perm(3);
 	delete_node_perm(10);
+	delete_node_perm(9);
 	DISPLAY_INORDER();
 //	FREE_INORDER();
 	//FREE_INORDER();
