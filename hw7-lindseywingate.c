@@ -33,8 +33,8 @@ void add(int x) {
 	//temp is the pointer that moves around
 	while(temp->next != NULL) 
 		temp = temp->next; // Go To last Node
-	temp->next = newNode;
-	newNode->prev = temp;
+	temp->next = newNode; //adds new node to end of list
+	newNode->prev = temp; //links node back to list
 }
 
 //Prints all the elements in linked list in forward traversal order
@@ -66,7 +66,7 @@ void DISPLAY_POSTORDER() {
 	}
 	printf("\n");
 }
-
+/*
 void FREE_INORDER() {	
 	struct Node* temp = head;
 	while(temp->next != NULL) {
@@ -75,24 +75,22 @@ void FREE_INORDER() {
 	while(temp!=NULL) {
 		free(temp->prev);
 	}
-}
-
-/*void delete_node(int num) {
-	struct Node* temp = head;
-	struct Node* temp2 = NULL;
-	//if(temp==NULL)
-	//head deleted
-	//if(temp->data==num)
-		
-	while(temp->next != NULL) {
-		if(temp->data == num) {
-			temp2 = temp->next;
-		}	
-		temp=temp->next;
-	}
-
 }*/
 
+void delete_node(int num) {
+	struct Node* temp = head;
+	if(temp==NULL)
+		return;	
+	if(temp->data==num) {
+		head = temp->next;
+		head->prev=NULL;
+		temp = head;
+		//free(temp->next);
+		//free(temp->prev);
+	}
+	DISPLAY_INORDER();
+}
+/*
 struct Node* find_node(int num) {
 	struct Node* temp = head;
 	if(temp==NULL)
@@ -105,7 +103,7 @@ struct Node* find_node(int num) {
 		temp = temp->next;		
 	}
 	return NULL;
-}
+}*/
 
 int main(int num, char*arg[]) 
 {
@@ -117,7 +115,6 @@ int main(int num, char*arg[])
 		printf("One argument expected.\n");
 
 	head = NULL; // empty list. set head as NULL. 
-	end = NULL;
 
 	int n;
 	int n2 = atoi(arg[1]);
@@ -127,11 +124,11 @@ int main(int num, char*arg[])
 		add(n); 
 		printf("Input Data:		%d\n",n);
 	}
-	printf("\n");
+	delete_node(0);
 	DISPLAY_INORDER();	
 	DISPLAY_POSTORDER();
-	FREE_INORDER();
-	struct Node* newNode = find_node(3);
-	printf("%d", newNode->data);	
+	//FREE_INORDER();
+	//struct Node* newNode = find_node(3);
+	//printf("%d", newNode->data);	
 }
 /* This code was written by Lindsey Wingate*/
