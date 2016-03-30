@@ -77,19 +77,62 @@ void FREE_INORDER() {
 	}
 }*/
 
-void delete_node(int num) {
+void delete_node_perm(int num) {
 	struct Node* temp = head;
+	struct Node* temp2 = head;
+	if(temp==NULL)
+		return;	
+	if(temp->data==num) {
+		head = temp->next;
+		head->prev=NULL;
+		free(temp);
+		return;
+	}
+	while(temp->next!=NULL)	{
+		if(temp->data==num) {
+			temp2 = temp->prev;
+			temp2->next = temp->next;
+			temp->next = NULL;
+			temp->prev = NULL;
+			//free(temp);
+			temp=temp2->next;
+			temp->prev = temp2;	
+			return;
+		}
+		if(temp->data!=num) {
+			temp=temp->next;
+		}
+	}
+//	if(temp->next==NULL) {
+		
+//	}
+		//free(temp->next);
+		//free(temp->prev);
+}
+/*
+void delete_node_temp(int num) {
+	struct Node* temp = head;
+	struct Node* temp2 = head;
 	if(temp==NULL)
 		return;	
 	if(temp->data==num) {
 		head = temp->next;
 		head->prev=NULL;
 		temp = head;
+	while(temp->next!=NULL)	{
+						
+	}
+	if(temp->next==NULL) {
+		
+	}
 		//free(temp->next);
 		//free(temp->prev);
 	}
 	DISPLAY_INORDER();
 }
+*/	
+//void FREE_INORDER() {
+//}
 /*
 struct Node* find_node(int num) {
 	struct Node* temp = head;
@@ -105,8 +148,7 @@ struct Node* find_node(int num) {
 	return NULL;
 }*/
 
-int main(int num, char*arg[]) 
-{
+int main(int num, char*arg[]) {
 	if(num==2)
 		printf("\nCommand line argument:	%s\n\n", arg[1]);
 	else if(num>2)
@@ -124,9 +166,11 @@ int main(int num, char*arg[])
 		add(n); 
 		printf("Input Data:		%d\n",n);
 	}
-	delete_node(0);
 	DISPLAY_INORDER();	
 	DISPLAY_POSTORDER();
+	delete_node_perm(2);
+	DISPLAY_INORDER();
+//	FREE_INORDER();
 	//FREE_INORDER();
 	//struct Node* newNode = find_node(3);
 	//printf("%d", newNode->data);	
