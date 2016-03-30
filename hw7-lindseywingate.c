@@ -37,46 +37,6 @@ void add(int x) {
 	newNode->prev = temp; //links node back to list
 }
 
-//Prints all the elements in linked list in forward traversal order
-void DISPLAY_INORDER() {
-	struct Node* temp = head;
-	if(temp==NULL) {
-		return;
-	}
-	while(temp != NULL) {
-		printf("Left to right output:	%d\n",temp->data);
-		temp = temp->next;
-	}
-	printf("\n");
-}
-
-//Prints all elements in linked list in reverse traversal order. 
-void DISPLAY_POSTORDER() {
-	struct Node* temp = head;
-	if(temp == NULL) 
-		return; // empty list, exit
-	// Going to last Node
-	while(temp->next != NULL) {
-		temp = temp->next;
-	}
-	// Traversing backward using prev pointer
-	while(temp != NULL) {
-		printf("Right to left output:	%d\n",temp->data);
-		temp = temp->prev;
-	}
-	printf("\n");
-}
-/*
-void FREE_INORDER() {	
-	struct Node* temp = head;
-	while(temp->next != NULL) {
-		temp = temp->next;
-	}
-	while(temp!=NULL) {
-		free(temp->prev);
-	}
-}*/
-
 void delete_node_perm(int num) {
 	struct Node* temp = head;
 	struct Node* temp2 = head;//use for reference for deleting nodes 
@@ -110,47 +70,58 @@ void delete_node_perm(int num) {
 		free(temp);	
 		return;	
 	}
-		//free(temp->next);
-		//free(temp->prev);
 }
-/*
-void delete_node_temp(int num) {
+//Prints all the elements in linked list in forward traversal order
+void DISPLAY_INORDER() {
 	struct Node* temp = head;
-	struct Node* temp2 = head;
-	if(temp==NULL)
-		return;	
-	if(temp->data==num) {
-		head = temp->next;
-		head->prev=NULL;
-		temp = head;
-	while(temp->next!=NULL)	{
-						
+	if(temp==NULL) {
+		return;
 	}
-	if(temp->next==NULL) {
-		
+	while(temp != NULL) {
+		printf("Left to right output:	%d\n",temp->data);
+		temp = temp->next;
 	}
-		//free(temp->next);
-		//free(temp->prev);
-	}
-	DISPLAY_INORDER();
+	printf("\n");
 }
-*/	
-//void FREE_INORDER() {
-//}
-/*
-struct Node* find_node(int num) {
+
+//Prints all elements in linked list in reverse traversal order. 
+void DISPLAY_POSTORDER() {
 	struct Node* temp = head;
-	if(temp==NULL)
-		return temp;
+	if(temp == NULL) 
+		return; // empty list, exit
+	// Going to last Node
 	while(temp->next != NULL) {
-		if (temp->data == num) {
-			printf("FOUND!");
-			return temp;	
-		}
-		temp = temp->next;		
+		temp = temp->next;
 	}
-	return NULL;
-}*/
+	// Traversing backward using prev pointer
+	while(temp != NULL) {
+		printf("Right to left output:	%d\n",temp->data);
+		temp = temp->prev;
+	}
+	printf("\n");
+}
+
+void FREE_INORDER() {	
+	struct Node* temp = head;
+	while(temp->next != NULL) {
+		temp = temp->next;
+	}
+	while(temp!=NULL) {
+		free(temp->prev);
+	}
+}
+
+int length() {
+	struct Node* temp = head;
+	int count=0;
+	if(temp==NULL)
+		return 0;
+	while(temp->next != NULL) {
+		temp=temp->next;
+		count++;
+	}
+	return count;
+}
 
 int main(int num, char*arg[]) {
 	if(num==2)
@@ -172,11 +143,14 @@ int main(int num, char*arg[]) {
 	}
 	DISPLAY_INORDER();	
 	DISPLAY_POSTORDER();
+	printf("%d\n", length());
 	delete_node_perm(2);
 	delete_node_perm(3);
 	delete_node_perm(10);
 	delete_node_perm(9);
 	DISPLAY_INORDER();
+	printf("%d\n", length());
+
 //	FREE_INORDER();
 	//FREE_INORDER();
 	//struct Node* newNode = find_node(3);
