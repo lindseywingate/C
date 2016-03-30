@@ -32,7 +32,7 @@ void add(int x) {
 	}
 	//temp is the pointer that moves around
 	while(temp->next != NULL) 
-		temp = temp->next; // Go To last Node
+		temp = temp->next; // go to last Node
 	temp->next = newNode; //adds new node to end of list
 	newNode->prev = temp; //links node back to list
 }
@@ -79,7 +79,7 @@ void FREE_INORDER() {
 
 void delete_node_perm(int num) {
 	struct Node* temp = head;
-	struct Node* temp2 = head;
+	struct Node* temp2 = head;//use for reference for deleting nodes 
 	if(temp==NULL)
 		return;	
 	if(temp->data==num) {
@@ -90,22 +90,26 @@ void delete_node_perm(int num) {
 	}
 	while(temp->next!=NULL)	{
 		if(temp->data==num) {
-			temp2 = temp->prev;
-			temp2->next = temp->next;
-			temp->next = NULL;
-			temp->prev = NULL;
-			//free(temp);
-			temp=temp2->next;
-			temp->prev = temp2;	
+			temp2 = temp->prev;//node before temp
+			temp2->next = temp->next;//node before temp points to node after temp
+			temp->next = NULL;//temp is disconnected from next node
+			temp->prev = NULL;//temp is disconnected from prev node
+			free(temp);
+			temp=temp2->next;//temp is reassigned to node after temp2
+			temp->prev = temp2;//list is reconnected, goes full circle
 			return;
 		}
 		if(temp->data!=num) {
 			temp=temp->next;
 		}
 	}
-//	if(temp->next==NULL) {
-		
-//	}
+	if(temp->next==NULL) {
+		temp2 = temp->prev;
+		temp2->next = NULL;
+		temp->prev = NULL;
+		free(temp);	
+		return;	
+	}
 		//free(temp->next);
 		//free(temp->prev);
 }
@@ -169,6 +173,8 @@ int main(int num, char*arg[]) {
 	DISPLAY_INORDER();	
 	DISPLAY_POSTORDER();
 	delete_node_perm(2);
+	delete_node_perm(3);
+	delete_node_perm(10);
 	DISPLAY_INORDER();
 //	FREE_INORDER();
 	//FREE_INORDER();
