@@ -71,6 +71,41 @@ void delete_node_perm(int num) {
 		return;	
 	}
 }
+
+void delete_node_temp(int num) {
+	struct Node* temp = head;
+	struct Node* temp2 = head;//use for reference for deleting nodes 
+	if(temp==NULL)
+		return;	
+	if(temp->data==num) {
+		head = temp->next;
+		head->prev=NULL;
+		free(temp);
+		return;
+	}
+	while(temp->next!=NULL)	{
+		if(temp->data==num) {
+			temp2 = temp->prev;//node before temp
+			temp2->next = temp->next;//node before temp points to node after temp
+			temp->next = NULL;//temp is disconnected from next node
+			temp->prev = NULL;//temp is disconnected from prev node
+			free(temp);
+			temp=temp2->next;//temp is reassigned to node after temp2
+			temp->prev = temp2;//list is reconnected, goes full circle
+			return;
+		}
+		if(temp->data!=num) {
+			temp=temp->next;
+		}
+	}
+	if(temp->next==NULL) {
+		temp2 = temp->prev;
+		temp2->next = NULL;
+		temp->prev = NULL;
+		free(temp);	
+		return;	
+	}
+}
 //Prints all the elements in linked list in forward traversal order
 void DISPLAY_INORDER() {
 	struct Node* temp = head;
@@ -140,7 +175,7 @@ int main(int num, char*arg[]) {
 
 	head = NULL; // empty list. set head as NULL. 
 
-	int n;
+	int n,i;
 	int n2 = atoi(arg[1]);
 	//add to list up until number n2, which is the command line input
 	for(n=0; n<n2+1; n++)
@@ -150,13 +185,12 @@ int main(int num, char*arg[]) {
 	}
 	DISPLAY_INORDER();	
 	DISPLAY_POSTORDER();
-	printf("%d\n", length());
-	delete_node_perm(2);
-	delete_node_perm(3);
-	delete_node_perm(10);
-	delete_node_perm(9);
-	DISPLAY_INORDER();
-	printf("%d\n", length());
+
+	int del_node_num = rand() % n2 + 3;
+	for(i=0; i<delete_me; i++) {
+		int delete_node = (rand() % n2);
+	}
+
 	FREE_INORDER();
 	DISPLAY_INORDER();
 	printf("%d\n", length());
