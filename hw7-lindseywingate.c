@@ -8,7 +8,7 @@ struct Node  {
 };
 
 struct Node* head; // global variable - pointer to head node.
-
+struct Node* head_garbage;
 //Creates a new Node and returns pointer to it. 
 struct Node* get_new_node(int x) 
 {
@@ -28,6 +28,23 @@ void add(int x) {
 	if(head == NULL) {
 		//point to node
 		head = newNode;
+		return;
+	}
+	//temp is the pointer that moves around
+	while(temp->next != NULL) 
+		temp = temp->next; // go to last Node
+	temp->next = newNode; //adds new node to end of list
+	newNode->prev = temp; //links node back to list
+}
+
+void add_garbage(int x) {
+	//head is head node  
+	struct Node* temp = head_garbage;
+	//pointer to new nodea
+	struct Node* newNode = get_new_node(x);
+	if(head_garbage == NULL) {
+		//point to node
+		head_garbage = newNode;
 		return;
 	}
 	//temp is the pointer that moves around
@@ -80,6 +97,7 @@ void delete_node_temp(int num) {
 	if(temp->data==num) {
 		head = temp->next;
 		head->prev=NULL;
+		add_garbage(temp->data);
 		free(temp);
 		return;
 	}
@@ -89,6 +107,7 @@ void delete_node_temp(int num) {
 			temp2->next = temp->next;//node before temp points to node after temp
 			temp->next = NULL;//temp is disconnected from next node
 			temp->prev = NULL;//temp is disconnected from prev node
+			add_garbage(temp->data);
 			free(temp);
 			temp=temp2->next;//temp is reassigned to node after temp2
 			temp->prev = temp2;//list is reconnected, goes full circle
@@ -102,6 +121,7 @@ void delete_node_temp(int num) {
 		temp2 = temp->prev;
 		temp2->next = NULL;
 		temp->prev = NULL;
+		add_garbage(temp->data);
 		free(temp);	
 		return;	
 	}
@@ -119,11 +139,23 @@ void DISPLAY_INORDER() {
 	printf("\n");
 }
 
+//Prints all the elements in linked list in forward traversal order
+void DISPLAY_TRASH() {
+	struct Node* temp = head_garbage;
+	if(temp==NULL) {
+		return;
+	}
+	while(temp != NULL) {
+		printf("Left to right output:	%d\n",temp->data);
+		temp = temp->next;
+	}
+	printf("\n");
+}
+
 //Prints all elements in linked list in reverse traversal order. 
 void DISPLAY_POSTORDER() {
 	struct Node* temp = head;
 	if(temp == NULL)
-		printf("None in list."); 
 		return; // empty list, exit
 	// Going to last Node
 	while(temp->next != NULL) {
@@ -162,9 +194,8 @@ int length() {
 	}
 	return count;
 }
-
-
 //*****************************************main********************************************//
+
 int main(int num, char*arg[]) {
 	if(num==2)
 		printf("\nCommand line argument:	%s\n\n", arg[1]);
@@ -174,6 +205,7 @@ int main(int num, char*arg[]) {
 		printf("One argument expected.\n");
 
 	head = NULL; // empty list. set head as NULL. 
+	head_garbage = NULL;
 
 	int n,i;
 	int n2 = atoi(arg[1]);
@@ -183,16 +215,18 @@ int main(int num, char*arg[]) {
 		add(n); 
 		printf("Input Data:		%d\n",n);
 	}
+	printf("\n");
 	DISPLAY_INORDER();	
 	DISPLAY_POSTORDER();
 
+	int delete_me;
 	int del_node_num = rand() % n2 + 3;
-	for(i=0; i<delete_me; i++) {
-		int delete_node = (rand() % n2);
+	for(i=0; i<del_node_num; i++) {
+		delete_me = (rand() % n2);
+		delete_node_temp(delete_me);
 	}
-
-	FREE_INORDER();
 	DISPLAY_INORDER();
-	printf("%d\n", length());
+	DISPLAY_TRASH();
+	FREE_INORDER();
 }
 /* This code was written by Lindsey Wingate*/
