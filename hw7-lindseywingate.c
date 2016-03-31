@@ -89,7 +89,7 @@ void delete_node_perm(int num) {
 	}
 }
 
-void delete_node_temp(int num) {
+void add_to_garbage_list(int num) {
 	struct Node* temp = head;
 	struct Node* temp2 = head;//use for reference for deleting nodes 
 	if(temp==NULL)
@@ -146,7 +146,7 @@ void DISPLAY_TRASH() {
 		return;
 	}
 	while(temp != NULL) {
-		printf("Left to right output:	%d\n",temp->data);
+		printf("TRASH LIST:		%d\n",temp->data);
 		temp = temp->next;
 	}
 	printf("\n");
@@ -183,6 +183,20 @@ void FREE_INORDER() {
 	}
 }
 
+void FREE_TRASH() {
+	struct Node* temp = head_garbage;
+	while(temp->next != NULL) {
+		head_garbage = temp->next;
+		temp->next=NULL;
+		free(temp);		
+		temp = head_garbage;
+	}
+	if(temp->next==NULL) {
+		head_garbage=NULL;
+		free(temp);	
+	}
+}
+
 int length() {
 	struct Node* temp = head;
 	int count=0;
@@ -197,6 +211,7 @@ int length() {
 //*****************************************main********************************************//
 
 int main(int num, char*arg[]) {
+	//get data from command line
 	if(num==2)
 		printf("\nCommand line argument:	%s\n\n", arg[1]);
 	else if(num>2)
@@ -205,10 +220,10 @@ int main(int num, char*arg[]) {
 		printf("One argument expected.\n");
 
 	head = NULL; // empty list. set head as NULL. 
-	head_garbage = NULL;
+	head_garbage = NULL; //empty trash list. set head as null
 
 	int n,i;
-	int n2 = atoi(arg[1]);
+	int n2 = atoi(arg[1]);//number input from command line
 	//add to list up until number n2, which is the command line input
 	for(n=0; n<n2+1; n++)
 	{
@@ -216,17 +231,26 @@ int main(int num, char*arg[]) {
 		printf("Input Data:		%d\n",n);
 	}
 	printf("\n");
+	
+	//show the nodes that were added to the main list
 	DISPLAY_INORDER();	
 	DISPLAY_POSTORDER();
 
+	//randomly select the nodes that will be deleted
 	int delete_me;
 	int del_node_num = rand() % n2 + 3;
 	for(i=0; i<del_node_num; i++) {
 		delete_me = (rand() % n2);
-		delete_node_temp(delete_me);
+		add_to_garbage_list(delete_me);
 	}
-	DISPLAY_INORDER();
+	//display trash list and free
 	DISPLAY_TRASH();
+	FREE_TRASH();
+
+	//display remaining contents of the original list
+	DISPLAY_INORDER();
+	DISPLAY_POSTORDER();
+	//free original list
 	FREE_INORDER();
 }
 /* This code was written by Lindsey Wingate*/
