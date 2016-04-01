@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 struct Node  {
 	int data;
@@ -157,7 +158,7 @@ void DISPLAY_POSTORDER() {
 	struct Node* temp = head;
 	if(temp == NULL)
 		return; // empty list, exit
-	// Going to last Node
+	// go to last Node
 	while(temp->next != NULL) {
 		temp = temp->next;
 	}
@@ -235,14 +236,21 @@ int main(int num, char*arg[]) {
 	//show the nodes that were added to the main list
 	DISPLAY_INORDER();	
 	DISPLAY_POSTORDER();
-
-	//randomly select the nodes that will be deleted
+	
+	//randomly select the nodes that will be deleted using seeded rand
+	time_t t;
+	srand((unsigned) time(&t));
 	int delete_me;
-	int del_node_num = rand() % n2 + 3;
+	int del_node_num;
+	if(n2==1 || n2==2 || n2==3)
+		del_node_num = 1;
+	if(n2>3)
+		del_node_num = rand() % n2+1;
 	for(i=0; i<del_node_num; i++) {
-		delete_me = (rand() % n2);
+		delete_me = rand() % n2;
 		add_to_garbage_list(delete_me);
 	}
+			
 	//display trash list and free
 	DISPLAY_TRASH();
 	FREE_TRASH();
