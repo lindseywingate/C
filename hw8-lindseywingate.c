@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-//#include <string.h>
+#include <string.h>
 
 typedef struct list
 {
@@ -26,7 +26,7 @@ int main(void)
 
 	char line[100];		
 	struct list s_array[10];//array of structs
-	FILE*file1;
+	FILE* file1;
 	file1 = fopen("hw8data.txt", "r");
 	
 	while(1) {
