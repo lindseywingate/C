@@ -18,6 +18,7 @@ struct Node* get_new_node(int num)
 	newNode->phone_number=num;
 	return newNode;
 }
+
 void add(int num, int count) {
 	struct Node* temp = &s_array[count];	
 	struct Node* newNode = get_new_node(num);
@@ -25,12 +26,19 @@ void add(int num, int count) {
 		temp=temp->next;
 	temp->next=newNode;	
 
-//	printf("THIS IS TEMP: %s\n", temp->first_name);	
-//	printf("%sADD TEST\n", s_array[c].first_name);	
-
-}		
+}
+		
 int delete(char first[20], char last[20], int c) {
 	return c;
+}
+
+void printme(int count) {
+	struct Node* temp=&s_array[count];
+	printf("%s %s", temp->first_name, temp->last_name);
+	while(temp->next !=NULL){
+		printf("%d\n", temp->phone_number);	
+		temp=temp->next;
+	}
 }
 
 int main(void)
@@ -67,7 +75,7 @@ int main(void)
 			num4=0;
 			num5=0;
 		}
-		if(do_this=='R')		
+		else if(do_this=='R')		
 			delete(first, last, count);	
 		if(do_this=='Q')		
 			break;		
@@ -76,33 +84,7 @@ int main(void)
 	}
 	//confirms names are added to list 
 	for(m=0; m<10; m++) {
-		printf("%s ", s_array[m].first_name);
-		printf("%s\n", s_array[m].last_name);
+		printme(m);
 	}
 }
 
-
-
-
-/*
-if(num1==0)
-temp[0]=0;
-else{		
-temp[0]=num1;}
-if(num2==0)
-temp[1]=0;
-else {
-temp[1]=num2;}
-if(num3==0)
-temp[2]=0;
-else{
-temp[2]=num3;}
-if(num4==0)
-temp[3]=0;
-else {
-temp[3]=num4;}
-if(num5==0)
-temp[4]=0;
-else {
-temp[4]=num5;}
-*/
