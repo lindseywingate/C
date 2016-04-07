@@ -10,20 +10,24 @@ typedef struct list
 	struct Node* next;			
 }list; 
 
+void add(int num1, int num2, int num3, int num4, int num5, int c) {
+			
+
+}
+
 int main(void)
 {
 	//do_this:  I == should add
 	//			R == should delete
 	char do_this;
-	char first[10];
-	char last[20];
 	int num_of_nodes;
 	int num1;
 	int num2;
 	int num3;
 	int num4;
 	int num5;	
-
+	int count=0;
+	
 	char line[100];		
 	struct list s_array[10];//array of structs
 	FILE* file1;
@@ -32,9 +36,12 @@ int main(void)
 	while(1) {
 		if(feof(file1)) 
 			break;
-		fscanf(file1, "%c %s %s %d %d %d %d %d %d", &do_this, first, last, &num_of_nodes, &num1, &num2, &num3, &num4, &num5);
+		fscanf(file1, "%c %s %s %d %d %d %d %d %d", &do_this, s_array[count].first_name, s_array[count].last_name, &num_of_nodes, &num1, &num2, &num3, &num4, &num5);
+	
+	add(num1, num2, num3, num4, num5, count);	
+
 	//	fscanf(file1, "%s", line); 
 	//	printf("%s\n", line);
-		printf("%c %s %s %d %d %d %d %d %d\n", do_this, first, last, num_of_nodes, num1, num2, num3, num4, num5);
+		printf("%c %d %d %d %d %d %d\n", do_this, num_of_nodes, num1, num2, num3, num4, num5);		
 	}
 }
