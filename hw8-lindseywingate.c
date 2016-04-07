@@ -27,7 +27,6 @@ void add(char first[20], char last[20], int num, int count) {
 	while(temp->next !=NULL)
 		temp=temp->next;
 	temp->next=newNode;	
-
 }
 		
 int delete(char first[20], char last[20], int c) {
@@ -46,14 +45,10 @@ void printme(int count) {
 int main(void)
 {
 	char do_this;
-	char first[20];
-	char last[20];
-	int num_of_nodes;
-	int num1, num2, num3, num4, num5, m, x;
+	char first[20],last[20];
+	int num1, num2, num3, num4, num5, m, x, num_of_nodes;
 	int count=0;
 	int temp[5];
-	
-	char line[100];		
 	FILE* file1;
 	file1 = fopen("hw8data.txt", "r");
 	
@@ -80,9 +75,7 @@ int main(void)
 			delete(first, last, count);	
 		if(do_this=='Q')		
 			break;		
-	//printf("%c %s %s %d %d %d %d %d %d\n", do_this, first, last, num_of_nodes, num1, num2, num3, num4, num5);		
 		count = count+1;
 	}
-	//confirms names are added to list 
 }
 
