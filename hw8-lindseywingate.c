@@ -12,15 +12,18 @@ typedef struct list
 
 int main(void)
 {
+	char line[100];		
 	struct list s_array[10];//array of structs
 	FILE*file1;
-/*	file1.fopen("hw8data.txt");
+	file1 = fopen("hw8data.txt", "r");
+	
 	while(1) {
-		if(feof(file1)) {
+		if(feof(file1)) 
 			break;
-		}
-		fscanf(file1, "%s", 
-*/			
-
-
+		fscanf(file1, "%s", line); 
+		/*fscanf(file1, "%c %s %s %d %d", &do_this, first_name, last_name, &num_of_nodes, &phone); 
+		printf("%c %s %s %d %d\n", do_this, first_name, last_name, num_of_nodes, phone);
+		*/
+		printf("%s\n", line);
+	}
 }
