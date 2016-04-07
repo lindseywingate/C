@@ -10,10 +10,8 @@ typedef struct list
 	struct Node* next;			
 }list; 
 
-void add(int num1, int num2, int num3, int num4, int num5, int c) {
+//void add(int num1, int num2, int num3, int num4, int num5, int c) {
 			
-
-}
 
 int main(void)
 {
@@ -38,10 +36,16 @@ int main(void)
 			break;
 		fscanf(file1, "%c %s %s %d %d %d %d %d %d", &do_this, s_array[count].first_name, s_array[count].last_name, &num_of_nodes, &num1, &num2, &num3, &num4, &num5);
 	
-	add(num1, num2, num3, num4, num5, count);	
+	//add(num1, num2, num3, num4, num5, count);	
 
 	//	fscanf(file1, "%s", line); 
 	//	printf("%s\n", line);
 		printf("%c %d %d %d %d %d %d\n", do_this, num_of_nodes, num1, num2, num3, num4, num5);		
+		count = count+1;
+	}
+	int m;
+	for(m=0; m<10; m++) {
+		printf("%s", s_array[m].first_name);
+		printf("%s\n", s_array[m].last_name);
 	}
 }
