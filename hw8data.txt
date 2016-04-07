@@ -1,0 +1,11 @@
+I Herb Thompson 1 7728323
+I Angela Urness 3 7809606 7733889 7724609
+I Josh Vanpelt 2 7721170 7731959
+I Linda Huurt 4 7734404 7774012 7773023 7921492
+I Dale Denang 2 7774017 7878485
+R Josh Vanpelt 0 
+I Mary Mund 3 7933045 7771234 7820987
+R Angela Urness 0
+R Linda Huurt 0
+I Ron Marsh 1 7774013
+Q
