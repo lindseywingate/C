@@ -19,8 +19,10 @@ struct Node* get_new_node(int num)
 	return newNode;
 }
 
-void add(int num, int count) {
-	struct Node* temp = &s_array[count];	
+void add(char first[20], char last[20], int num, int count) {
+	struct Node* temp = &s_array[count];
+	strncpy(temp->first_name, first, 20);
+	strncpy(temp->last_name, last, 20);	
 	struct Node* newNode = get_new_node(num);
 	while(temp->next !=NULL)
 		temp=temp->next;
@@ -34,8 +36,8 @@ int delete(char first[20], char last[20], int c) {
 
 void printme(int count) {
 	struct Node* temp=&s_array[count];
-	printf("%s %s", temp->first_name, temp->last_name);
-	while(temp->next !=NULL){
+	printf("%s %s \n", temp->first_name, temp->last_name);
+	while(temp!=NULL){
 		printf("%d\n", temp->phone_number);	
 		temp=temp->next;
 	}
@@ -58,22 +60,21 @@ int main(void)
 	while(1) {
 		if(feof(file1)) 
 			break;
-		fscanf(file1, "%c %s %s %d %d %d %d %d %d", &do_this, s_array[count].first_name, s_array[count].last_name, &num_of_nodes, &num1, &num2, &num3, &num4, &num5);
+		fscanf(file1, "%c %s %s %d %d %d %d %d %d", &do_this, first, last, &num_of_nodes, &num1, &num2, &num3, &num4, &num5);
 		temp[0]=num1;
 		temp[1]=num2;
 		temp[2]=num3;
 		temp[3]=num4;
 		temp[4]=num5;
 		if(do_this=='I'){
-			for(x=0; x<5; x++) {
-				printf("Reading in these nums: %d\n", temp[x]);
-				add(temp[x], count);	
-			}
+			for(x=0; x<5; x++) 
+				add(first, last, temp[x], count);	
 			num1=0;
 			num2=0;
 			num3=0;
 			num4=0;
 			num5=0;
+			printme(count);
 		}
 		else if(do_this=='R')		
 			delete(first, last, count);	
@@ -83,8 +84,5 @@ int main(void)
 		count = count+1;
 	}
 	//confirms names are added to list 
-	for(m=0; m<10; m++) {
-		printme(m);
-	}
 }
 
