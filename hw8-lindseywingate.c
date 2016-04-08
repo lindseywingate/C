@@ -83,6 +83,7 @@ int main(void)
 	int num_of_nodes=0;
 	int m, x, o;
 	int count=0;
+	int add_count=0;
 	int temp[5];
 	FILE* file1;
 	file1 = fopen("hw8data.txt", "r");
@@ -98,8 +99,9 @@ int main(void)
 		temp[3]=num4;
 		temp[4]=num5;
 		if(do_this=='I'){
+			add_count = add_count +1;
 			for(x=0; x<5; x++) 
-				add(first, last, temp[x], count);	
+				add(first, last, temp[x], add_count);	
 			//resets values for next batch
 			num1=0;
 			num2=0;
@@ -107,7 +109,7 @@ int main(void)
 			num4=0;
 			num5=0;
 		}
-		else if(do_this=='R')		
+		if(do_this=='R')		
 			delete(first, last, count);	
 		if(do_this=='Q')		
 			break;		
