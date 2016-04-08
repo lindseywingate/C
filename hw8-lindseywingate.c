@@ -57,10 +57,17 @@ void delete(char first[20], char last[20], int c) {
 
 void printme(int count) {
 	struct Node* temp=&s_array[count];
-	printf("%s %s \n", temp->first_name, temp->last_name);
-	while(temp!=NULL){
-		printf("%d\n", temp->phone_number);	
-		temp=temp->next;
+	int test = strcmp(s_array[count].first_name, "");
+	if (test!=0) {
+		printf("\n%s %s \n", temp->first_name, temp->last_name);
+		while(temp!=NULL){
+			if(temp->phone_number!=0)
+				printf("%d\n", temp->phone_number);	
+			temp=temp->next;
+		}
+	}
+	else{
+		printf("\nEmpty Contact\n");
 	}
 }
 
@@ -68,7 +75,13 @@ int main(void)
 {
 	char do_this;
 	char first[20],last[20];
-	int num1, num2, num3, num4, num5, m, x, o, num_of_nodes;
+	int num1=0;
+	int num2=0;
+	int num3=0;
+	int num4=0;
+	int num5=0;
+	int num_of_nodes=0;
+	int m, x, o;
 	int count=0;
 	int temp[5];
 	FILE* file1;
@@ -77,7 +90,7 @@ int main(void)
 	while(1) {
 		if(feof(file1)) 
 			break;
-		fscanf(file1, "%c %s %s %d %d %d %d %d %d", &do_this, first, last, &num_of_nodes, &num1, &num2, &num3, &num4, &num5);
+		fscanf(file1,"%c %s %s %d %d %d %d %d %d", &do_this, first, last, &num_of_nodes, &num1, &num2, &num3, &num4, &num5);
 		//set individual values
 		temp[0]=num1;
 		temp[1]=num2;
