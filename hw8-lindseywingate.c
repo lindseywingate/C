@@ -29,8 +29,30 @@ void add(char first[20], char last[20], int num, int count) {
 	temp->next=newNode;	
 }
 		
-int delete(char first[20], char last[20], int c) {
-	return c;
+void delete(char first[20], char last[20], int c) {
+	int a;
+	
+	for(a=0; a<10; a++) {
+		struct Node* temp = &s_array[a];	
+		int test = strcmp(s_array[a].first_name, first);
+		if(test==0){
+			//printf("FOUND %s", s_array[a].first_name);		
+	
+	
+	//other temp that actually deletes nodes/gets freed
+			struct Node* temp = &s_array[a];
+			struct Node* temp2 = &s_array[a];
+			strncpy(s_array[a].first_name, "", 20);
+			strncpy(s_array[a].last_name, "", 20);
+			s_array[a].phone_number=0;
+			while(temp2->next != NULL){	
+				temp2=temp2->next;
+				temp->phone_number=0;	
+				temp=temp2;
+			}	
+			temp->phone_number=0;
+		}
+	}
 }
 
 void printme(int count) {
@@ -46,7 +68,7 @@ int main(void)
 {
 	char do_this;
 	char first[20],last[20];
-	int num1, num2, num3, num4, num5, m, x, num_of_nodes;
+	int num1, num2, num3, num4, num5, m, x, o, num_of_nodes;
 	int count=0;
 	int temp[5];
 	FILE* file1;
@@ -56,6 +78,7 @@ int main(void)
 		if(feof(file1)) 
 			break;
 		fscanf(file1, "%c %s %s %d %d %d %d %d %d", &do_this, first, last, &num_of_nodes, &num1, &num2, &num3, &num4, &num5);
+		//set individual values
 		temp[0]=num1;
 		temp[1]=num2;
 		temp[2]=num3;
@@ -64,12 +87,12 @@ int main(void)
 		if(do_this=='I'){
 			for(x=0; x<5; x++) 
 				add(first, last, temp[x], count);	
+			//resets values for next batch
 			num1=0;
 			num2=0;
 			num3=0;
 			num4=0;
 			num5=0;
-			printme(count);
 		}
 		else if(do_this=='R')		
 			delete(first, last, count);	
@@ -77,5 +100,7 @@ int main(void)
 			break;		
 		count = count+1;
 	}
+	for(o=0; o<10; o++) 
+		printme(o);
 }
 
