@@ -1,3 +1,4 @@
+/*This code was written by Lindsey Wingate*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -118,4 +119,4 @@ int main(void)
 	for(o=0; o<10; o++) 
 		printme(o);
 }
-
+/*This code was written by Lindsey Wingate*/
