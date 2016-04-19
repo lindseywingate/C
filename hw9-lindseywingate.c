@@ -30,7 +30,7 @@ void add(char x[50]) {
 void print() {
 	struct Node* temp = nodester;
 	while(temp != NULL) {
-		printf("Left to right output:	%s\n",temp->data);
+		printf("%s\n",temp->data);
 		temp = temp->next;
 	}
 	printf("\n");
@@ -58,22 +58,17 @@ int main()
 	FILE*file1;
 	char test[50];
 	char trash;
-	
 	file1 = fopen("hw9data.txt", "r");
 	if(file1==NULL) {
 		printf("Can't open file.");
 		exit(1);
 	}
-
-/*	
-	if(file1) {
-		while((c=getc(file1)) !=EOF)
-			putchar(c);
-		fclose(file1);
-	}
-*/
 	while(fgets(test, sizeof test, file1) !=NULL) {
-		add(test);
+		if(strstr(test, "STOP") != 0)
+			break;
+		else {	
+			add(test);	
+		}
 	}
 	print();
 	fclose(file1);
