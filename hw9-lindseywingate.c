@@ -59,13 +59,15 @@ void add_location(char x[50], char y[50], int num) {
 //Prints all the elements in linked list in forward traversal order
 void print() {
 	struct Node* temp = nodester;
-	struct Node* temp2;
+	struct Node* temp2 = nodester;
+	//cycle through doubly linked list
 	while(temp != NULL) {
-		printf("MAIN NODE: %s\n",temp->data);
-		if(temp->list!=NULL) {
-			temp2=temp->list;
+		//print main nodes
+		printf("MAIN NODE: %s",temp->data);
+		temp2=temp->list;
+		while(temp2!=NULL) {
 			printf("Location Node: %s\n", temp2->data);
-			temp2=temp2->next;
+			temp2=temp2->list;
 		}
 		temp = temp->next;
 	}
