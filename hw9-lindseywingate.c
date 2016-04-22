@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include <time.h>
 struct Node {
 	char data[50];
 	struct Node* next;
@@ -43,7 +43,6 @@ void add_location(char x[50], char y[50], int num) {
 			temp=temp->next;
 		}
 	}
-	printf("PRINTING TEMP%s\n", temp->data);	
 	//find the head node (in doubly linked list)
 	struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
 	//set data for new location node
@@ -73,16 +72,44 @@ void print() {
 	}
 	printf("\n");
 }
+struct Node* get_starting_node(int me) {
+	struct Node* temp=nodester;
+	int count;
+	for(count=0; count<me; count++){	
+		if(temp->next==NULL)
+			break;
+		temp=temp->next;
+	}
+	return temp;
+}
+
+void wicked_algorithm(struct Node start_here) {
+
+
+
+}
+
+int count() {
+	int count = 0;
+	struct Node* temp = nodester;
+	//cycle through doubly linked list
+	while(temp != NULL) {
+		count++;
+		temp = temp->next;
+	}
+	return count;
+}
 
 int main()
 {
 	int c;
+	struct Node* algorithm=nodester;
 	FILE*file1;
 	char test[50];
 	char trash;
 	char token[50];
 	char token2[50];
-	int token3;
+	int token3, r, num_nodes;
 	file1 = fopen("hw9data.txt", "r");
 	if(file1==NULL) {
 		printf("Can't open file.");
@@ -95,7 +122,6 @@ int main()
 		//if line has space, add travel node	
 		if(strstr(test, " ")!=0){
 			sscanf(test, "%s %s %d\n", token, token2, &token3);
-			printf("PRINTING: %s %s %d\n", token, token2, token3);
 			add_location(token, token2, token3);	
 		}
 		//if no spaces, add to doubly linked list
@@ -103,8 +129,19 @@ int main()
 			add(test);	
 		}
 	}
-	print();
 	fclose(file1);
-}
+	num_nodes = count();
+	//generate random number based on number of nodes to select first node for algorithmw
+	int n,i;
+	n=5;
+	time_t t;
+	srand((unsigned) time(&t));
+	i = rand() % num_nodes;
+	//printf("I%d\n", i);
+	algorithm=get_starting_node(i-1);
+	printf("Starting Location: %s", algorithm->data);
+	wicked_algorithm();	
+	//print();
+	}
 
 /*This code was written by Lindsey Wingate*/
