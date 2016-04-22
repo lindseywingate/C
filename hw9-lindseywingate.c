@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <stdbool.h>
 struct Node {
 	char data[50];
 	struct Node* next;
@@ -41,6 +42,7 @@ void add_location(char x[50], char y[50], int num) {
 			if(temp->next==NULL)		
 				break;
 			temp=temp->next;
+			
 		}
 	}
 	//find the head node (in doubly linked list)
@@ -65,13 +67,15 @@ void print() {
 		printf("MAIN NODE: %s",temp->data);
 		temp2=temp->list;
 		while(temp2!=NULL) {
-			printf("Location Node: %s\n", temp2->data);
+			printf("Location Node: %s %d\n", temp2->data, temp2->cost);
 			temp2=temp2->list;
 		}
 		temp = temp->next;
 	}
 	printf("\n");
 }
+
+//this method gets the first node of the algorithm. isn't used any other time
 struct Node* get_starting_node(int me) {
 	struct Node* temp=nodester;
 	int count;
@@ -83,10 +87,60 @@ struct Node* get_starting_node(int me) {
 	return temp;
 }
 
-void wicked_algorithm(struct Node start_here) {
-
-
-
+//this gets the corresponding child node (to whatever random number was picked in the algorithm)
+struct Node* get_child(struct Node* start_here, int i) {
+	struct Node* temp = start_here;
+	int a=0;
+	//get the child node 
+	while(a<i) {
+		if(temp->list==NULL)
+			break;
+		else {
+			a++;
+			temp=temp->list;
+		}
+	}
+	printf("child: %s %d\n", temp->data, temp->cost);
+	return temp;
+}
+//gets sent starting node (linked list node) and then does the selection of one of it's children. if the child is home, it returns the accumulated cost. If not, it finds the child in the linked list and continues its search
+int wicked_algorithm(struct Node* start_here, int accum_cost) {
+	struct Node* temp = start_here;	
+	struct Node* child = start_here;
+	int num_children=0;
+	int i;
+	time_t t;
+	int a = 1;
+	//int a=0;
+	//if for some reason the linked list node is Home, sent back total	
+	if(strstr(temp->data, "Home")) {
+		return accum_cost;
+	}
+	//if no children, you have hit a dead end sir
+	if(temp->list==NULL) {
+		printf("There is no where for you to go. This restaurant is a dead end!");	
+		return accum_cost;
+	}
+	//otherwise, count number of children
+	else {
+		while(temp->list!=NULL){
+			num_children++;	
+			temp=temp->list;
+		}
+	}
+	srand((unsigned) time(&t));
+	i = rand() % num_children;	
+	if(i==0)
+		i=1;
+	//select the child node that will be the next destination
+	child = get_child(start_here, i);
+	if(strcmp(child->data, "Home")==0) {
+		printf("testing");
+	}
+	else {
+		accum_cost = accum_cost + child->cost;
+	}
+	return accum_cost;
 }
 
 int count() {
@@ -109,7 +163,9 @@ int main()
 	char trash;
 	char token[50];
 	char token2[50];
-	int token3, r, num_nodes;
+	int token3, r, num_nodes, i;
+	time_t t;
+
 	file1 = fopen("hw9data.txt", "r");
 	if(file1==NULL) {
 		printf("Can't open file.");
@@ -132,16 +188,13 @@ int main()
 	fclose(file1);
 	num_nodes = count();
 	//generate random number based on number of nodes to select first node for algorithmw
-	int n,i;
-	n=5;
-	time_t t;
 	srand((unsigned) time(&t));
-	i = rand() % num_nodes;
+	i = rand() % num_nodes-1;
 	//printf("I%d\n", i);
-	algorithm=get_starting_node(i-1);
+	algorithm=get_starting_node(i+1);
 	printf("Starting Location: %s", algorithm->data);
-	wicked_algorithm();	
-	//print();
+	int accum_cost = wicked_algorithm(algorithm, 0);	
+	printf("Your wild meanderings last night cost you %d dollars.\n", accum_cost);
 	}
 
 /*This code was written by Lindsey Wingate*/
